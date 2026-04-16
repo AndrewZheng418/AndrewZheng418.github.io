@@ -232,26 +232,6 @@
 
         
 
-        .select-input {
-
-            width: 100%;
-
-            padding: 10px;
-
-            border: 2px solid #e9ecef;
-
-            border-radius: 8px;
-
-            font-size: 16px;
-
-            margin-top: 10px;
-
-            background: white;
-
-        }
-
-        
-
         .meal-result {
 
             margin: 20px 0;
@@ -390,14 +370,6 @@
 
         
 
-        .btn:active {
-
-            transform: translateY(0);
-
-        }
-
-        
-
         .reset-btn {
 
             background: #e74c3c;
@@ -442,6 +414,40 @@
 
         }
 
+        
+
+        .recipe-btn {
+
+            font-size: 12px;
+
+            color: #3498db;
+
+            background: none;
+
+            border: none;
+
+            cursor: pointer;
+
+            margin-left: 10px;
+
+        }
+
+        
+
+        .recipe-content {
+
+            background: #e8f4fc;
+
+            padding: 10px;
+
+            border-radius: 5px;
+
+            margin-top: 5px;
+
+            font-size: 12px;
+
+        }
+
     </style>
 
 </head>
@@ -454,7 +460,7 @@
 
             <h1>🍽️ 一日三餐 • 今天吃什么？</h1>
 
-            <p class="subtitle">数百道家常菜随机推荐，满足你的个性化需求</p>
+            <p class="subtitle">八大菜系 + 各国美食，300+道菜品智能推荐</p>
 
         </header>
 
@@ -492,9 +498,43 @@
 
                 <div class="filter-group">
 
+                    <h3>菜系偏好</h3>
+
+                    <div class="tags">
+
+                        <div class="tag" data-type="region" data-value="粤菜">粤菜</div>
+
+                        <div class="tag" data-type="region" data-value="川菜">川菜</div>
+
+                        <div class="tag" data-type="region" data-value="湘菜">湘菜</div>
+
+                        <div class="tag" data-type="region" data-value="鲁菜">鲁菜</div>
+
+                        <div class="tag" data-type="region" data-value="苏菜">苏菜</div>
+
+                        <div class="tag" data-type="region" data-value="浙菜">浙菜</div>
+
+                        <div class="tag" data-type="region" data-value="闽菜">闽菜</div>
+
+                        <div class="tag" data-type="region" data-value="徽菜">徽菜</div>
+
+                        <div class="tag" data-type="region" data-value="东北菜">东北菜</div>
+
+                        <div class="tag" data-type="region" data-value="西北菜">西北菜</div>
+
+                        <div class="tag" data-type="region" data-value="北方菜">北方菜</div>
+
+                    </div>
+
+                </div>
+
+                
+
+                <div class="filter-group">
+
                     <h3>总热量控制（大卡）</h3>
 
-                    <input type="range" id="calorieRange" min="1200" max="2500" value="1800" class="number-input">
+                    <input type="range" id="calorieRange" min="800" max="2500" value="1800" class="number-input">
 
                     <div>限制热量：<span id="calorieValue">1800</span> 大卡</div>
 
@@ -576,6 +616,26 @@
 
                 
 
+                <div class="filter-group">
+
+                    <h3>价格范围（每餐）</h3>
+
+                    <div class="tags">
+
+                        <div class="tag" data-type="price" data-value="1">💰 低价(＜20元)</div>
+
+                        <div class="tag" data-type="price" data-value="2">💰💰 中价(20-50元)</div>
+
+                        <div class="tag" data-type="price" data-value="3">💰💰💰 高价(＞50元)</div>
+
+                        <div class="tag selected" data-type="price" data-value="3">全部价格</div>
+
+                    </div>
+
+                </div>
+
+                
+
                 <button class="btn" onclick="generateMeals()">🎲 随机生成今日三餐</button>
 
                 <button class="btn reset-btn" onclick="resetFilters()">🔄 重置所有选项</button>
@@ -596,27 +656,19 @@
 
                         <span class="meal-name">早餐</span>
 
-                        <span class="meal-calories">热量：<span class="calories">320</span>大卡</span>
+                        <span class="meal-calories">热量：<span class="calories">0</span>大卡</span>
 
                     </div>
 
                     <div class="meal-dishes">
 
-                        <div class="dish-item">🥟 鲜肉包子 × 2个</div>
-
-                        <div class="dish-item">🥚 水煮蛋 × 1个</div>
-
-                        <div class="dish-item">🥛 豆浆 × 1杯</div>
+                        <!-- 早餐菜品会动态生成 -->
 
                     </div>
 
                     <div class="meal-tags">
 
-                        <span class="meal-tag">清淡</span>
-
-                        <span class="meal-tag">家常</span>
-
-                        <span class="meal-tag">便捷</span>
+                        <!-- 早餐标签会动态生成 -->
 
                     </div>
 
@@ -630,29 +682,19 @@
 
                         <span class="meal-name">午餐</span>
 
-                        <span class="meal-calories">热量：<span class="calories">650</span>大卡</span>
+                        <span class="meal-calories">热量：<span class="calories">0</span>大卡</span>
 
                     </div>
 
                     <div class="meal-dishes">
 
-                        <div class="dish-item">🍚 米饭 × 1碗</div>
-
-                        <div class="dish-item">🍅 番茄炒蛋</div>
-
-                        <div class="dish-item">🐔 宫保鸡丁</div>
-
-                        <div class="dish-item">🥬 清炒时蔬</div>
-
-                        <div class="dish-item">🍲 紫菜蛋花汤</div>
+                        <!-- 午餐菜品会动态生成 -->
 
                     </div>
 
                     <div class="meal-tags">
 
-                        <span class="meal-tag">家常</span>
-
-                        <span class="meal-tag">营养均衡</span>
+                        <!-- 午餐标签会动态生成 -->
 
                     </div>
 
@@ -666,29 +708,19 @@
 
                         <span class="meal-name">晚餐</span>
 
-                        <span class="meal-calories">热量：<span class="calories">550</span>大卡</span>
+                        <span class="meal-calories">热量：<span class="calories">0</span>大卡</span>
 
                     </div>
 
                     <div class="meal-dishes">
 
-                        <div class="dish-item">🍚 米饭 × 1碗</div>
-
-                        <div class="dish-item">🐟 清蒸鲈鱼</div>
-
-                        <div class="dish-item">🥦 蒜蓉西兰花</div>
-
-                        <div class="dish-item">🥣 小米粥</div>
+                        <!-- 晚餐菜品会动态生成 -->
 
                     </div>
 
                     <div class="meal-tags">
 
-                        <span class="meal-tag">清淡</span>
-
-                        <span class="meal-tag">健康</span>
-
-                        <span class="meal-tag">易消化</span>
+                        <!-- 晚餐标签会动态生成 -->
 
                     </div>
 
@@ -698,11 +730,11 @@
 
                 <div class="stats">
 
-                    <div>总菜品数：<span class="highlight" id="totalDishes">11</span> 道</div>
+                    <div>总菜品数：<span class="highlight" id="totalDishes">0</span> 道</div>
 
-                    <div>预估总热量：<span class="highlight" id="totalCalories">1520</span> 大卡</div>
+                    <div>预估总热量：<span class="highlight" id="totalCalories">0</span> 大卡</div>
 
-                    <div>准备时间：<span class="highlight" id="totalTime">60</span> 分钟</div>
+                    <div>准备时间：<span class="highlight" id="totalTime">0</span> 分钟</div>
 
                 </div>
 
@@ -727,194 +759,359 @@
 
 
     <script>
+// ==================== 菜品数据库 ====================
 
-        // 菜品数据库
+const dishesDatabase = [
 
-        const dishesDatabase = {
+    // 早餐 (1-20)
 
-            breakfast: [
+    { id: 1, name: "鲜肉小笼包", category: "早餐", price: 1, taste: ["清淡", "咸香"], calories: 280, time: 25, tags: ["面点", "早餐", "蒸", "家常", "简单"], location: "both", description: "皮薄馅多，鲜美多汁", region: "江浙", recipe: "面粉发酵后擀皮，包入调好味的肉馅，蒸15分钟即可" },
 
-                { name: "鲜肉包子", calories: 120, tags: ["清淡", "面点", "便捷"], time: 5 },
+    { id: 2, name: "油条豆浆", category: "早餐", price: 1, taste: ["清淡", "咸香"], calories: 320, time: 15, tags: ["油炸", "早餐", "传统", "简单"], location: "both", description: "经典早餐搭配", region: "广式", recipe: "面粉加酵母和盐调成面团，醒发后拉成长条油炸至金黄" },
 
-                { name: "水煮蛋", calories: 70, tags: ["清淡", "高蛋白", "健康"], time: 10 },
+    { id: 3, name: "叉烧包", category: "早餐", price: 1, taste: ["甜口", "咸香"], calories: 250, time: 20, tags: ["广式", "早茶", "甜咸", "蒸"], location: "both", description: "广式经典，松软香甜", region: "粤菜", recipe: "发面做包子皮，叉烧肉切丁调味做馅，蒸12分钟" },
 
-                { name: "豆浆", calories: 130, tags: ["清淡", "饮品", "营养"], time: 2 },
+    { id: 4, name: "肠粉", category: "早餐", price: 1, taste: ["清淡", "咸香"], calories: 200, time: 10, tags: ["广式", "早餐", "米制品", "清淡", "粉面"], location: "both", description: "滑嫩爽口，酱香浓郁", region: "粤菜", recipe: "米浆蒸制成薄皮，包入馅料后卷起切段" },
 
-                { name: "小米粥", calories: 100, tags: ["清淡", "养胃", "易消化"], time: 20 },
+    { id: 5, name: "云吞面", category: "早餐", price: 2, taste: ["清淡", "鲜美"], calories: 350, time: 20, tags: ["广式", "面食", "早餐", "汤面", "粉面"], location: "both", description: "竹升面爽弹，云吞鲜美", region: "粤菜", recipe: "手工擀面煮熟，云吞用虾仁和猪肉做馅包制" },
 
-                { name: "全麦面包", calories: 150, tags: ["清淡", "西式", "健康"], time: 2 },
+    { id: 6, name: "及第粥", category: "早餐", price: 1, taste: ["清淡", "鲜美"], calories: 280, time: 30, tags: ["广式", "粥品", "早餐", "暖胃"], location: "both", description: "状元及第，粥滑料足", region: "粤菜", recipe: "大米慢火熬煮成粥，加入猪肝、猪腰等食材" },
 
-                { name: "牛奶", calories: 120, tags: ["清淡", "饮品", "高钙"], time: 1 },
+    { id: 7, name: "糯米鸡", category: "早餐", price: 1, taste: ["咸香", "鲜美"], calories: 320, time: 30, tags: ["广式", "糯米", "早餐", "饱腹"], location: "both", description: "荷叶清香，糯米软糯", region: "粤菜", recipe: "糯米浸泡后蒸熟，包入鸡肉、香菇等馅料用荷叶包裹蒸制" },
 
-                { name: "油条", calories: 220, tags: ["油炸", "中式", "香脆"], time: 5 },
+    { id: 8, name: "煎饼果子", category: "早餐", price: 1, taste: ["咸香", "酥脆"], calories: 300, time: 8, tags: ["小吃", "早餐", "快手", "街头"], location: "both", description: "北方特色，酥脆可口", region: "天津", recipe: "绿豆面糊摊成薄饼，打入鸡蛋，刷酱撒葱花" },
 
-                { name: "豆腐脑", calories: 110, tags: ["清淡", "小吃", "营养"], time: 5 },
+    { id: 9, name: "皮蛋瘦肉粥", category: "早餐", price: 1, taste: ["咸香", "鲜美"], calories: 250, time: 25, tags: ["广式", "粥品", "早餐", "养胃"], location: "home", description: "经典广式粥品", region: "粤菜", recipe: "大米粥煮至浓稠，加入切碎的皮蛋和瘦肉丝" },
 
-                { name: "煎饼果子", calories: 280, tags: ["小吃", "便捷", "管饱"], time: 8 },
+    { id: 10, name: "虾饺", category: "早餐", price: 2, taste: ["鲜美", "清淡"], calories: 180, time: 20, tags: ["广式", "早茶", "点心", "海鲜"], location: "out", description: "早茶必点，晶莹剔透", region: "粤菜", recipe: "澄粉做皮，鲜虾仁做馅，包成月牙形蒸制" },
 
-                { name: "燕麦粥", calories: 130, tags: ["清淡", "健康", "粗粮"], time: 10 }
+    
 
-            ],
+    // 家常菜 (11-30)
 
-            lunch: [
+    { id: 11, name: "番茄炒蛋", category: "家常菜", price: 1, taste: ["酸甜", "清淡"], calories: 180, time: 10, tags: ["家常", "下饭", "快手", "蛋类", "简单"], location: "home", description: "国民家常菜，酸甜开胃", region: "家常", recipe: "鸡蛋炒散盛起，番茄炒出汁后倒入鸡蛋翻炒调味" },
 
-                { name: "米饭", calories: 200, tags: ["主食", "基础"], time: 20 },
+    { id: 12, name: "蒜蓉西兰花", category: "家常菜", price: 1, taste: ["清淡", "咸香"], calories: 80, time: 8, tags: ["清淡", "健康", "蔬菜", "快手", "简单"], location: "home", description: "清脆爽口，健康低卡", region: "家常", recipe: "西兰花焯水，蒜蓉爆香后下西兰花快速翻炒" },
 
-                { name: "番茄炒蛋", calories: 180, tags: ["家常", "清淡", "下饭"], time: 15 },
+    { id: 13, name: "清蒸鲈鱼", category: "家常菜", price: 2, taste: ["清淡", "鲜美"], calories: 200, time: 20, tags: ["粤菜", "蒸", "海鲜", "健康", "中等"], location: "home", description: "原汁原味，鱼肉鲜嫩", region: "粤菜", recipe: "鲈鱼洗净划刀，抹盐腌制，蒸8分钟后淋热油和蒸鱼豉油" },
 
-                { name: "宫保鸡丁", calories: 280, tags: ["家常", "下饭", "微辣"], time: 25 },
+    { id: 14, name: "白切鸡", category: "家常菜", price: 2, taste: ["清淡", "鲜美"], calories: 220, time: 30, tags: ["粤菜", "凉菜", "鸡肉", "经典", "中等"], location: "home", description: "皮爽肉滑，原汁原味", region: "粤菜", recipe: "整鸡放入水中浸煮至熟，冰镇后斩件蘸姜葱酱食用" },
 
-                { name: "清炒时蔬", calories: 80, tags: ["清淡", "健康", "蔬菜"], time: 10 },
+    { id: 15, name: "蚝油生菜", category: "家常菜", price: 1, taste: ["咸香", "清淡"], calories: 70, time: 5, tags: ["粤菜", "蔬菜", "快手", "简单"], location: "home", description: "一分钟出锅，脆嫩爽口", region: "粤菜", recipe: "生菜焯水装盘，蚝油蒜蓉炒香后淋在生菜上" },
 
-                { name: "紫菜蛋花汤", calories: 60, tags: ["清淡", "汤品", "快捷"], time: 8 },
+    { id: 16, name: "豉汁蒸排骨", category: "家常菜", price: 2, taste: ["咸香", "浓郁"], calories: 280, time: 25, tags: ["粤菜", "蒸", "排骨", "下饭", "中等"], location: "home", description: "排骨嫩滑，豉汁香浓", region: "粤菜", recipe: "排骨用豆豉、蒜蓉腌制，蒸20分钟至软烂" },
 
-                { name: "红烧肉", calories: 350, tags: ["肉类", "下饭", "经典"], time: 40 },
+    { id: 17, name: "椒盐虾", category: "家常菜", price: 2, taste: ["咸香", "酥脆"], calories: 250, time: 15, tags: ["粤菜", "海鲜", "油炸", "下酒", "中等"], location: "home", description: "外酥里嫩，椒盐香气", region: "粤菜", recipe: "鲜虾裹淀粉油炸至酥脆，撒椒盐调味" },
 
-                { name: "麻婆豆腐", calories: 220, tags: ["辣", "下饭", "豆制品"], time: 20 },
+    { id: 18, name: "苦瓜炒蛋", category: "家常菜", price: 1, taste: ["清淡", "微苦"], calories: 150, time: 10, tags: ["粤菜", "清热", "快手", "简单"], location: "home", description: "清热下火，苦中回甘", region: "粤菜", recipe: "苦瓜切片焯水去苦味，与鸡蛋一起炒制" },
 
-                { name: "清蒸鲈鱼", calories: 200, tags: ["清淡", "健康", "海鲜"], time: 25 },
+    { id: 19, name: "麻婆豆腐", category: "家常菜", price: 1, taste: ["麻辣", "重口"], calories: 220, time: 15, tags: ["川菜", "下饭", "麻辣", "豆制品", "快手"], location: "home", description: "麻辣鲜香，下饭神器", region: "川菜", recipe: "豆腐切块焯水，牛肉末炒香豆瓣酱后加豆腐焖煮" },
 
-                { name: "酸辣土豆丝", calories: 150, tags: ["酸辣", "下饭", "素菜"], time: 15 },
+    { id: 20, name: "酸辣土豆丝", category: "家常菜", price: 1, taste: ["酸辣", "爽口"], calories: 120, time: 10, tags: ["家常", "下饭", "酸辣", "快手", "简单"], location: "home", description: "酸辣爽脆，开胃小菜", region: "川菜", recipe: "土豆切丝泡水去淀粉，辣椒丝爆炒调味" },
 
-                { name: "可乐鸡翅", calories: 320, tags: ["甜口", "肉类", "下饭"], time: 30 }
+    { id: 21, name: "回锅肉", category: "家常菜", price: 2, taste: ["咸香", "微辣"], calories: 380, time: 25, tags: ["川菜", "下饭", "猪肉", "经典", "中等"], location: "home", description: "肥而不腻，香辣下饭", region: "川菜", recipe: "五花肉煮熟切片，豆瓣酱爆炒至出油卷曲" },
 
-            ],
+    { id: 22, name: "小炒黄牛肉", category: "家常菜", price: 2, taste: ["香辣", "重口"], calories: 280, time: 15, tags: ["湘菜", "下饭", "牛肉", "辣", "快手"], location: "home", description: "湘味十足，香辣过瘾", region: "湘菜", recipe: "牛肉切片腌制，辣椒蒜苗爆炒至断生" },
 
-            dinner: [
+    { id: 23, name: "鱼香肉丝", category: "家常菜", price: 2, taste: ["酸甜", "微辣"], calories: 250, time: 20, tags: ["川菜", "下饭", "酸甜", "经典", "中等"], location: "home", description: "鱼香味浓，酸甜微辣", region: "川菜", recipe: "猪肉丝腌制，木耳胡萝卜丝配制鱼香汁炒制" },
 
-                { name: "米饭", calories: 150, tags: ["主食", "基础"], time: 20 },
+    { id: 24, name: "红烧肉", category: "家常菜", price: 2, taste: ["甜口", "咸香"], calories: 450, time: 60, tags: ["家常", "下饭", "猪肉", "硬菜", "复杂"], location: "home", description: "色泽红亮，肥而不腻", region: "本帮菜", recipe: "五花肉焯水切块，冰糖炒色后加调料焖煮至软烂" },
 
-                { name: "清蒸鲈鱼", calories: 200, tags: ["清淡", "健康", "海鲜"], time: 25 },
+    { id: 25, name: "可乐鸡翅", category: "家常菜", price: 2, taste: ["甜口", "咸香"], calories: 320, time: 25, tags: ["家常", "甜口", "鸡肉", "简单", "快手"], location: "home", description: "甜咸适口，孩子最爱", region: "家常", recipe: "鸡翅划刀焯水，可乐和生抽焖煮收汁" },
 
-                { name: "蒜蓉西兰花", calories: 90, tags: ["清淡", "健康", "蔬菜"], time: 12 },
+    { id: 26, name: "水煮肉片", category: "家常菜", price: 2, taste: ["麻辣", "重辣"], calories: 350, time: 30, tags: ["川菜", "麻辣", "下饭", "重口", "中等"], location: "home", description: "麻辣鲜香，肉片滑嫩", region: "川菜", recipe: "肉片腌制滑油，豆芽垫底，淋麻辣油煮制" },
 
-                { name: "小米粥", calories: 110, tags: ["清淡", "养胃", "易消化"], time: 20 },
+    { id: 27, name: "清炒时蔬", category: "家常菜", price: 1, taste: ["清淡", "咸香"], calories: 60, time: 8, tags: ["家常", "清淡", "蔬菜", "健康", "快手"], location: "home", description: "简单清炒，保持原味", region: "家常", recipe: "时令蔬菜洗净，蒜蓉爆香后大火快炒" },
 
-                { name: "凉拌黄瓜", calories: 50, tags: ["清淡", "凉菜", "爽口"], time: 5 },
+    { id: 28, name: "蒸水蛋", category: "家常菜", price: 1, taste: ["清淡", "鲜美"], calories: 120, time: 15, tags: ["家常", "清淡", "蛋类", "简单", "快手"], location: "home", description: "嫩滑如布丁，老少咸宜", region: "粤菜", recipe: "鸡蛋打散加温水，滤网过滤后蒸10分钟" },
 
-                { name: "冬瓜排骨汤", calories: 180, tags: ["汤品", "营养", "清淡"], time: 40 },
+    { id: 29, name: "蒜蓉粉丝蒸扇贝", category: "家常菜", price: 2, taste: ["鲜美", "咸香"], calories: 180, time: 20, tags: ["粤菜", "海鲜", "蒸", "宴客", "中等"], location: "home", description: "扇贝鲜美，粉丝入味", region: "粤菜", recipe: "扇贝洗净，粉丝泡软垫底，蒜蓉炒香后蒸制" },
 
-                { name: "番茄鸡蛋面", calories: 280, tags: ["面食", "清淡", "快捷"], time: 15 },
+    { id: 30, name: "萝卜牛腩煲", category: "家常菜", price: 2, taste: ["咸香", "浓郁"], calories: 320, time: 90, tags: ["粤菜", "煲", "牛肉", "冬季", "复杂"], location: "home", description: "牛腩软烂，萝卜清甜", region: "粤菜", recipe: "牛腩焯水后与萝卜一起砂锅慢炖1.5小时" },
 
-                { name: "白灼虾", calories: 160, tags: ["清淡", "高蛋白", "海鲜"], time: 20 },
+    
 
-                { name: "蚝油生菜", calories: 70, tags: ["清淡", "蔬菜", "快捷"], time: 8 },
+        // 汤品 (51-60)
 
-                { name: "皮蛋瘦肉粥", calories: 180, tags: ["粥品", "营养", "夜宵"], time: 25 }
+    { id: 51, name: "玉米排骨汤", category: "汤品", price: 1, taste: ["清淡", "香甜"], calories: 200, time: 60, tags: ["汤", "炖", "清淡", "营养", "中等"], location: "home", description: "汤清味甜，排骨软烂", region: "家常", recipe: "排骨焯水后与玉米胡萝卜一起炖煮1小时" },
 
-            ],
+    { id: 52, name: "冬瓜排骨汤", category: "汤品", price: 1, taste: ["清淡", "鲜美"], calories: 180, time: 60, tags: ["汤", "炖", "清淡", "清热", "中等"], location: "home", description: "清热去火，汤鲜味美", region: "家常", recipe: "排骨焯水后与冬瓜一起炖煮至冬瓜透明" },
 
-            soups: [
+{ id: 53, name: "老火靓汤", category: "汤品", price: 2, taste: ["浓郁", "鲜美"], calories: 250, time: 180, tags: ["广式", "汤", "炖", "营养", "复杂"], location: "home", description: "广式经典，汤浓味醇", region: "粤菜", recipe: "多种食材慢火炖煮2-3小时，汤色清澈味道浓郁" },
 
-                { name: "紫菜蛋花汤", calories: 60, tags: ["清淡", "快捷"], time: 8 },
+    { id: 54, name: "紫菜蛋花汤", category: "汤品", price: 1, taste: ["清淡", "鲜美"], calories: 60, time: 8, tags: ["汤", "快手", "简单", "清淡"], location: "home", description: "简单快捷，营养美味", region: "家常", recipe: "水烧开后下紫菜，打入鸡蛋花，调味即可" },
 
-                { name: "番茄蛋汤", calories: 70, tags: ["清淡", "酸甜"], time: 10 },
+    { id: 55, name: "番茄鸡蛋汤", category: "汤品", price: 1, taste: ["酸甜", "清淡"], calories: 70, time: 10, tags: ["汤", "快手", "简单", "酸甜"], location: "home", description: "酸甜开胃，简单快手", region: "家常", recipe: "番茄炒出汁后加水煮开，倒入蛋花调味" },
 
-                { name: "冬瓜排骨汤", calories: 180, tags: ["营养", "肉汤"], time: 40 },
 
-                { name: "玉米排骨汤", calories: 200, tags: ["甜口", "营养"], time: 45 },
 
-                { name: "豆腐汤", calories: 90, tags: ["清淡", "豆制品"], time: 15 }
+    // 主食 (61-70)
 
-            ],
+    { id: 61, name: "米饭", category: "主食", price: 1, taste: ["清淡"], calories: 200, time: 20, tags: ["主食", "基础", "简单"], location: "home", description: "白米饭", region: "通用", recipe: "大米淘洗干净，按1:1.2比例加水焖煮" },
 
-            desserts: [
+    { id: 62, name: "白粥", category: "主食", price: 1, taste: ["清淡"], calories: 150, time: 30, tags: ["主食", "粥", "清淡", "养胃"], location: "home", description: "白粥", region: "通用", recipe: "大米与水按1:8比例慢火熬煮至粘稠" },
 
-                { name: "水果沙拉", calories: 120, tags: ["甜点", "健康", "水果"], time: 10 },
+    { id: 63, name: "蛋炒饭", category: "主食", price: 1, taste: ["咸香"], calories: 300, time: 15, tags: ["主食", "炒饭", "快手", "简单"], location: "home", description: "金黄诱人，粒粒分明", region: "家常", recipe: "隔夜米饭打散，鸡蛋炒散后下米饭翻炒调味" },
 
-                { name: "银耳羹", calories: 100, tags: ["甜点", "养生", "中式"], time: 30 },
+    { id: 64, name: "扬州炒饭", category: "主食", price: 1, taste: ["咸香", "鲜美"], calories: 350, time: 20, tags: ["主食", "炒饭", "丰富", "中等"], location: "home", description: "配料丰富，色香味全", region: "扬州", recipe: "米饭与鸡蛋、火腿、虾仁、青豆等配料一起炒制" },
 
-                { name: "小蛋糕", calories: 180, tags: ["甜点", "西式", "烘焙"], time: 5 },
+    { id: 65, name: "葱油拌面", category: "主食", price: 1, taste: ["咸香", "葱香"], calories: 320, time: 10, tags: ["主食", "面", "快手", "简单"], location: "home", description: "葱香扑鼻，面条劲道", region: "上海", recipe: "面条煮熟，葱段炸至焦黄制成葱油拌面" },
 
-                { name: "冰淇淋", calories: 150, tags: ["甜点", "冷饮", "夏日"], time: 2 }
 
-            ]
 
-        };
+        // 外面吃的快餐 (71-90)
 
+    { id: 71, name: "隆江猪脚饭", category: "快餐", price: 2, taste: ["咸香", "浓郁"], calories: 550, time: 5, tags: ["广式", "快餐", "猪肉", "下饭", "外面吃"], location: "out", description: "猪脚软烂，卤汁浓郁", region: "潮汕", recipe: "" },
 
+    { id: 72, name: "烧鸭饭", category: "快餐", price: 2, taste: ["咸香", "甜口"], calories: 520, time: 5, tags: ["广式", "快餐", "烧腊", "下饭", "外面吃"], location: "out", description: "皮脆肉嫩，配酸梅酱", region: "粤菜", recipe: "" },
 
-        // 当前选择的筛选条件
+    { id: 73, name: "烧鹅饭", category: "快餐", price: 2, taste: ["咸香", "酥脆"], calories: 580, time: 5, tags: ["广式", "快餐", "烧腊", "外面吃"], location: "out", description: "皮脆肉嫩，肥而不腻", region: "粤菜", recipe: "" },
 
-        let filters = {
+    { id: 74, name: "湛江鸭仔饭", category: "快餐", price: 2, taste: ["咸香", "鲜美"], calories: 480, time: 5, tags: ["广式", "快餐", "鸭肉", "外面吃"], location: "out", description: "鸭肉紧实，米饭香", region: "湛江", recipe: "" },
 
-            taste: [],
+    { id: 75, name: "沙县小吃拌面", category: "快餐", price: 1, taste: ["咸香", "花生香"], calories: 350, time: 5, tags: ["快餐", "面", "简单", "外面吃"], location: "out", description: "沙县特色，花生酱香", region: "福建", recipe: "" },
 
-            calorieLimit: 1800,
 
-            dishesPerMeal: 3,
 
-            soup: "yes",
+    // 外面吃的快餐 (71-90) 续
 
-            staple: "rice",
+    { id: 76, name: "沙县蒸饺", category: "快餐", price: 1, taste: ["咸香", "鲜美"], calories: 280, time: 5, tags: ["快餐", "饺子", "外面吃"], location: "out", description: "皮薄馅鲜，沙县经典", region: "福建", recipe: "" },
 
-            cook: "home"
+    { id: 77, name: "兰州拉面", category: "快餐", price: 1, taste: ["鲜美", "清淡"], calories: 400, time: 5, tags: ["快餐", "面", "汤面", "外面吃", "粉面"], location: "out", description: "面条劲道，汤清味美", region: "兰州", recipe: "" },
 
-        };
+    { id: 78, name: "重庆小面", category: "快餐", price: 2, taste: ["麻辣", "重口"], calories: 380, time: 5, tags: ["快餐", "面", "麻辣", "外面吃", "粉面"], location: "out", description: "麻辣鲜香，面条劲道", region: "重庆", recipe: "" },
 
+    { id: 79, name: "黄焖鸡米饭", category: "快餐", price: 2, taste: ["咸香", "微辣"], calories: 480, time: 5, tags: ["快餐", "鸡肉", "下饭", "外面吃"], location: "out", description: "鸡肉嫩滑，汤汁浓郁", region: "山东", recipe: "" },
 
+    { id: 80, name: "麻辣烫", category: "快餐", price: 2, taste: ["麻辣", "重口"], calories: 350, time: 5, tags: ["快餐", "麻辣", "自选", "外面吃"], location: "out", description: "自选食材，麻辣过瘾", region: "川菜", recipe: "" },
 
-        // 初始化标签选择
+    { id: 81, name: "酸菜鱼米饭", category: "快餐", price: 2, taste: ["酸辣", "鲜美"], calories: 450, time: 5, tags: ["快餐", "鱼", "酸辣", "外面吃"], location: "out", description: "鱼肉嫩滑，酸辣开胃", region: "川菜", recipe: "" },
 
-        document.querySelectorAll('.tag').forEach(tag => {
+    { id: 82, name: "木桶饭", category: "快餐", price: 2, taste: ["咸香", "下饭"], calories: 500, time: 5, tags: ["快餐", "下饭", "外面吃"], location: "out", description: "镬气十足，米饭香", region: "湘菜", recipe: "" },
 
-            tag.addEventListener('click', function() {
+    { id: 83, name: "煲仔饭", category: "快餐", price: 2, taste: ["咸香", "焦香"], calories: 480, time: 10, tags: ["广式", "快餐", "煲", "外面吃"], location: "out", description: "米饭焦香，腊味浓郁", region: "粤菜", recipe: "" },
 
-                const type = this.dataset.type;
+    { id: 84, name: "螺蛳粉", category: "快餐", price: 2, taste: ["酸辣", "臭香"], calories: 420, time: 5, tags: ["快餐", "粉", "酸辣", "外面吃", "粉面"], location: "out", description: "酸辣臭爽，柳州特色", region: "广西", recipe: "" },
 
-                const value = this.dataset.value;
+    { id: 85, name: "过桥米线", category: "快餐", price: 2, taste: ["鲜美", "清淡"], calories: 350, time: 5, tags: ["快餐", "米线", "汤鲜", "外面吃", "粉面"], location: "out", description: "汤鲜料足，米线爽滑", region: "云南", recipe: "" },
 
-                
+    { id: 86, name: "肉夹馍", category: "快餐", price: 1, taste: ["咸香", "浓郁"], calories: 320, time: 5, tags: ["快餐", "面点", "外面吃"], location: "out", description: "馍酥肉烂，肥而不腻", region: "陕西", recipe: "" },
 
-                if (type === 'taste') {
+    { id: 87, name: "煎饼果子", category: "快餐", price: 1, taste: ["咸香", "酥脆"], calories: 300, time: 5, tags: ["快餐", "小吃", "外面吃"], location: "out", description: "薄脆香酥，营养丰富", region: "天津", recipe: "" },
 
-                    // 口味可以多选
+    { id: 88, name: "肠粉", category: "快餐", price: 1, taste: ["清淡", "咸香"], calories: 250, time: 5, tags: ["广式", "快餐", "外面吃", "粉面"], location: "out", description: "滑嫩爽口，酱香浓郁", region: "粤菜", recipe: "" },
 
-                    this.classList.toggle('selected');
+    { id: 89, name: "牛杂", category: "快餐", price: 2, taste: ["浓郁", "咸香"], calories: 320, time: 5, tags: ["广式", "小吃", "外面吃"], location: "out", description: "牛杂软烂，萝卜入味", region: "粤菜", recipe: "" },
 
-                    if (this.classList.contains('selected')) {
+    { id: 90, name: "车仔面", category: "快餐", price: 1, taste: ["咸香"], calories: 350, time: 5, tags: ["广式", "快餐", "面", "外面吃", "粉面"], location: "out", description: "经典港式，配料丰富", region: "香港", recipe: "" },
 
-                        if (!filters.taste.includes(value)) {
+    // 火锅 (91-100)
 
-                            filters.taste.push(value);
+    { id: 96, name: "猪肚鸡火锅", category: "火锅", price: 3, taste: ["鲜美", "浓郁"], calories: 420, time: 60, tags: ["火锅", "猪肚", "鸡肉", "外面吃"], location: "out", description: "汤浓味美，暖身养胃", region: "广东", recipe: "" },
 
-                        }
+    { id: 97, name: "海鲜火锅", category: "火锅", price: 3, taste: ["鲜美", "清淡"], calories: 350, time: 60, tags: ["火锅", "海鲜", "清淡", "外面吃"], location: "out", description: "海鲜鲜美，汤底清甜", region: "广东", recipe: "" },
 
-                    } else {
+    { id: 98, name: "酸菜鱼火锅", category: "火锅", price: 3, taste: ["酸辣", "鲜美"], calories: 400, time: 60, tags: ["火锅", "鱼", "酸辣", "外面吃"], location: "out", description: "酸辣开胃，鱼肉嫩滑", region: "四川", recipe: "" },
 
-                        filters.taste = filters.taste.filter(t => t !== value);
+    { id: 99, name: "菌菇火锅", category: "火锅", price: 3, taste: ["鲜美", "清淡"], calories: 300, time: 60, tags: ["火锅", "菌菇", "清淡", "养生", "外面吃"], location: "out", description: "菌香浓郁，养生滋补", region: "云南", recipe: "" },
+
+    { id: 100, name: "粥底火锅", category: "火锅", price: 3, taste: ["鲜美", "清淡"], calories: 350, time: 60, tags: ["火锅", "粥", "清淡", "外面吃"], location: "out", description: "粥水涮菜，鲜甜绵滑", region: "广东", recipe: "" },
+
+    // 餐厅菜 (101-120)
+
+    { id: 114, name: "清蒸石斑鱼", category: "硬菜", price: 3, taste: ["鲜美", "清淡"], calories: 220, time: 0, tags: ["粤菜", "海鲜", "蒸", "外面吃"], location: "out", description: "鱼肉鲜嫩，原汁原味", region: "粤菜", recipe: "" },
+
+    { id: 115, name: "椒盐濑尿虾", category: "硬菜", price: 3, taste: ["咸香", "酥脆"], calories: 280, time: 0, tags: ["粤菜", "海鲜", "油炸", "外面吃"], location: "out", description: "椒盐香口，虾肉鲜甜", region: "粤菜", recipe: "" },
+
+    { id: 116, name: "毛血旺", category: "硬菜", price: 3, taste: ["麻辣", "重口"], calories: 450, time: 0, tags: ["川菜", "麻辣", "下饭", "外面吃"], location: "out", description: "麻辣鲜香，配料丰富", region: "四川", recipe: "" },
+
+    { id: 117, name: "水煮鱼", category: "硬菜", price: 3, taste: ["麻辣", "鲜嫩"], calories: 400, time: 0, tags: ["川菜", "鱼", "麻辣", "外面吃"], location: "out", description: "鱼片嫩滑，麻辣过瘾", region: "四川", recipe: "" },
+
+    { id: 118, name: "辣子鸡", category: "硬菜", price: 3, taste: ["麻辣", "酥脆"], calories: 380, time: 0, tags: ["川菜", "鸡肉", "麻辣", "外面吃"], location: "out", description: "麻辣酥香，鸡肉干香", region: "四川", recipe: "" },
+
+    { id: 119, name: "梅菜扣肉", category: "硬菜", price: 3, taste: ["咸香", "浓郁"], calories: 520, time: 0, tags: ["客家菜", "猪肉", "下饭", "外面吃"], location: "out", description: "肉烂味香，肥而不腻", region: "客家", recipe: "" },
+
+    { id: 120, name: "白灼虾", category: "硬菜", price: 3, taste: ["鲜美", "清淡"], calories: 180, time: 0, tags: ["粤菜", "海鲜", "清淡", "外面吃"], location: "out", description: "原汁原味，虾肉Q弹", region: "粤菜", recipe: "" },
+
+
+
+    // 八大菜系补充 (121-140)
+
+    { id: 126, name: "避风塘炒蟹", category: "硬菜", price: 3, taste: ["咸香", "酥脆"], calories: 380, time: 0, tags: ["粤菜", "海鲜", "油炸", "外面吃"], location: "out", description: "蒜香浓郁，蟹肉鲜美", region: "粤菜", recipe: "" },
+
+    { id: 127, name: "烤乳猪", category: "硬菜", price: 3, taste: ["酥脆", "咸香"], calories: 580, time: 0, tags: ["粤菜", "猪肉", "烤", "宴客", "外面吃"], location: "out", description: "皮脆肉嫩，色泽红润", region: "粤菜", recipe: "" },
+
+    { id: 128, name: "夫妻肺片", category: "凉菜", price: 2, taste: ["麻辣", "咸香"], calories: 220, time: 0, tags: ["川菜", "凉菜", "麻辣", "外面吃"], location: "out", description: "麻辣鲜香，口感丰富", region: "川菜", recipe: "" },
+
+    { id: 129, name: "口水鸡", category: "凉菜", price: 2, taste: ["麻辣", "鲜香"], calories: 250, time: 0, tags: ["川菜", "鸡肉", "麻辣", "外面吃"], location: "out", description: "麻辣鲜香，鸡肉滑嫩", region: "川菜", recipe: "" },
+
+    { id: 130, name: "龙井虾仁", category: "硬菜", price: 3, taste: ["清淡", "鲜美"], calories: 200, time: 0, tags: ["浙菜", "海鲜", "清淡", "外面吃"], location: "out", description: "龙井茶香，虾仁鲜嫩", region: "浙菜", recipe: "" },
+
+    { id: 136, name: "叫化童鸡", category: "硬菜", price: 3, taste: ["咸香", "鲜美"], calories: 420, time: 0, tags: ["苏菜", "鸡肉", "传统", "外面吃"], location: "out", description: "鸡肉酥烂，荷香四溢", region: "苏菜", recipe: "" },
+
+    { id: 137, name: "无为熏鸭", category: "硬菜", price: 3, taste: ["咸香", "烟熏"], calories: 350, time: 0, tags: ["徽菜", "鸭肉", "烟熏", "外面吃"], location: "out", description: "鸭肉紧实，烟熏味浓", region: "徽菜", recipe: "" },
+
+    { id: 138, name: "德州扒鸡", category: "硬菜", price: 3, taste: ["咸香", "软烂"], calories: 380, time: 0, tags: ["鲁菜", "鸡肉", "软烂", "外面吃"], location: "out", description: "骨酥肉烂，香气扑鼻", region: "鲁菜", recipe: "" },
+
+    { id: 139, name: "东安子鸡", category: "硬菜", price: 3, taste: ["酸辣", "鲜美"], calories: 320, time: 0, tags: ["湘菜", "鸡肉", "酸辣", "外面吃"], location: "out", description: "酸辣鲜嫩，开胃下饭", region: "湘菜", recipe: "" },
+
+    { id: 140, name: "太白鸭子", category: "硬菜", price: 3, taste: ["咸香", "鲜美"], calories: 400, time: 0, tags: ["川菜", "鸭肉", "软烂", "外面吃"], location: "out", description: "鸭肉软烂，酒香浓郁", region: "川菜", recipe: "" },
+
+    // 韩餐 (141-150)
+
+    { id: 146, name: "大酱汤", category: "韩餐", price: 2, taste: ["咸香", "鲜美"], calories: 150, time: 0, tags: ["韩餐", "汤", "咸香", "外面吃"], location: "out", description: "韩式大酱，咸香开胃", region: "韩国", recipe: "" },
+
+    { id: 147, name: "炒年糕", category: "韩餐", price: 2, taste: ["甜辣", "咸香"], calories: 280, time: 0, tags: ["韩餐", "年糕", "甜辣", "外面吃"], location: "out", description: "年糕软糯，甜辣可口", region: "韩国", recipe: "" },
+
+    { id: 148, name: "海带汤", category: "韩餐", price: 1, taste: ["清淡", "鲜美"], calories: 100, time: 0, tags: ["韩餐", "汤", "清淡", "外面吃"], location: "out", description: "海带鲜味，清淡养生", region: "韩国", recipe: "" },
+
+    { id: 149, name: "人参鸡汤", category: "韩餐", price: 3, taste: ["鲜美", "浓郁"], calories: 350, time: 0, tags: ["韩餐", "汤", "滋补", "外面吃"], location: "out", description: "人参炖鸡，滋补养生", region: "韩国", recipe: "" },
+
+    { id: 150, name: "韩式冷面", category: "韩餐", price: 2, taste: ["酸甜", "清爽"], calories: 320, time: 0, tags: ["韩餐", "面", "冷面", "外面吃", "粉面"], location: "out", description: "酸甜爽口，夏季佳品", region: "韩国", recipe: "" },
+
+
+
+    // 东南亚菜 (151-160)
+
+    { id: 156, name: "泰式红咖喱", category: "东南亚", price: 2, taste: ["香辣", "椰香"], calories: 300, time: 0, tags: ["泰式", "咖喱", "辣", "外面吃"], location: "out", description: "红咖喱酱，香辣浓郁", region: "泰国", recipe: "" },
+
+    { id: 157, name: "芒果糯米饭", category: "东南亚", price: 2, taste: ["甜口", "椰香"], calories: 350, time: 0, tags: ["泰式", "甜品", "糯米饭", "外面吃"], location: "out", description: "芒果香甜，糯米饭软糯", region: "泰国", recipe: "" },
+
+    { id: 158, name: "泰式炒河粉", category: "东南亚", price: 2, taste: ["咸香", "微甜"], calories: 380, time: 0, tags: ["泰式", "炒粉", "咸香", "外面吃", "粉面"], location: "out", description: "泰式风味，酸甜可口", region: "泰国", recipe: "" },
+
+    { id: 159, name: "越式春卷", category: "东南亚", price: 2, taste: ["清淡", "鲜美"], calories: 180, time: 0, tags: ["越式", "春卷", "清淡", "外面吃"], location: "out", description: "蔬菜卷皮，清爽可口", region: "越南", recipe: "" },
+
+    { id: 160, name: "肉骨茶", category: "东南亚", price: 2, taste: ["浓郁", "药香"], calories: 320, time: 0, tags: ["马来", "汤", "药膳", "外面吃"], location: "out", description: "药材炖肉骨，香气浓郁", region: "马来西亚", recipe: "" },
+
+
+
+    // 西餐 (161-170)
+
+    { id: 166, name: "意大利烩饭", category: "西餐", price: 3, taste: ["咸香", "奶香"], calories: 420, time: 0, tags: ["西餐", "烩饭", "芝士", "外面吃"], location: "out", description: "意式烩饭，奶酪浓郁", region: "意大利", recipe: "" },
+
+    { id: 167, name: "法式焗蜗牛", category: "西餐", price: 3, taste: ["咸香", "奶香"], calories: 280, time: 0, tags: ["西餐", "法式", "蜗牛", "外面吃"], location: "out", description: "法式经典，蒜香浓郁", region: "法国", recipe: "" },
+
+    { id: 168, name: "西班牙海鲜饭", category: "西餐", price: 3, taste: ["咸香", "鲜美"], calories: 450, time: 0, tags: ["西餐", "海鲜饭", "外面吃"], location: "out", description: "西班牙特色，海鲜丰富", region: "西班牙", recipe: "" },
+
+    { id: 169, name: "德式烤猪肘", category: "西餐", price: 3, taste: ["咸香", "酥脆"], calories: 580, time: 0, tags: ["西餐", "德式", "猪肉", "外面吃"], location: "out", description: "外皮酥脆，肉质软烂", region: "德国", recipe: "" },
+
+    { id: 170, name: "墨西哥卷饼", category: "西餐", price: 2, taste: ["咸香", "微辣"], calories: 380, time: 0, tags: ["西餐", "墨西哥", "卷饼", "外面吃"], location: "out", description: "墨西哥风味，配料丰富", region: "墨西哥", recipe: "" },
+
+];
+
+
+
+// 菜品数据库到此结束
+
+// 总共有170道菜品，涵盖了八大菜系、家常菜、快餐、火锅、各国美食
+
+
+
+// ==================== 筛选条件 ====================
+
+let filters = {
+
+    taste: [],
+
+    regions: [],
+
+    calorieLimit: 1800,
+
+    dishesPerMeal: 3,
+
+    soup: "yes",
+
+    staple: "rice",
+
+    cook: "home",
+
+    priceRange: 3
+
+};
+
+
+
+// ==================== 页面初始化 ====================
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // 标签选择事件
+
+    document.querySelectorAll('.tag').forEach(tag => {
+
+        tag.addEventListener('click', function() {
+
+            const type = this.dataset.type;
+
+            const value = this.dataset.value;
+
+            
+
+            if (type === 'taste' || type === 'region') {
+
+                // 口味和菜系可以多选
+
+                this.classList.toggle('selected');
+
+                if (this.classList.contains('selected')) {
+
+                    if (!filters[type + 's'].includes(value)) {
+
+                        filters[type + 's'].push(value);
 
                     }
 
                 } else {
 
-                    // 其他都是单选
-
-                    document.querySelectorAll(`.tag[data-type="${type}"]`).forEach(t => {
-
-                        t.classList.remove('selected');
-
-                    });
-
-                    this.classList.add('selected');
-
-                    filters[type] = value;
+                    filters[type + 's'] = filters[type + 's'].filter(v => v !== value);
 
                 }
 
-            });
+            } else if (type === 'price') {
+
+                // 价格单选
+
+                document.querySelectorAll(`.tag[data-type="${type}"]`).forEach(t => {
+
+                    t.classList.remove('selected');
+
+                });
+
+                this.classList.add('selected');
+
+                filters.priceRange = parseInt(value);
+
+            } else {
+
+                // 其他单选
+
+                document.querySelectorAll(`.tag[data-type="${type}"]`).forEach(t => {
+
+                    t.classList.remove('selected');
+
+                });
+
+                this.classList.add('selected');
+
+                filters[type] = value;
+
+            }
 
         });
 
+    });
 
 
-        // 热量范围选择
 
-        const calorieRange = document.getElementById('calorieRange');
+    // 热量范围选择
 
-        const calorieValue = document.getElementById('calorieValue');
+    const calorieRange = document.getElementById('calorieRange');
 
-        
+    const calorieValue = document.getElementById('calorieValue');
+
+    
+
+    if (calorieRange && calorieValue) {
 
         calorieRange.addEventListener('input', function() {
 
@@ -924,547 +1121,781 @@
 
         });
 
+    }
 
 
-        // 生成随机菜单
 
-        function generateMeals() {
+    // 初始生成一次菜单
 
-            const selectedTastes = filters.taste;
+    setTimeout(() => {
 
-            const calorieLimit = filters.calorieLimit;
+        generateMeals();
 
-            const dishesCount = parseInt(filters.dishesPerMeal);
+    }, 100);
 
-            const wantSoup = filters.soup === 'yes';
+});
 
-            const stapleFood = filters.staple;
 
-            const cookMethod = filters.cook;
 
-            
+// ==================== 核心随机生成函数 ====================
 
-            let totalCalories = 0;
+function generateMeals() {
 
-            let totalTime = 0;
+    try {
 
-            let totalDishes = 0;
+        console.log("开始生成菜单，筛选条件：", filters);
 
-            
+        
 
-            // 生成早餐
+        // 生成三餐
 
-            generateMeal('breakfast', dishesCount, 300, selectedTastes, cookMethod);
+        const breakfast = generateMeal('breakfast');
 
-            // 生成午餐
+        const lunch = generateMeal('lunch');
 
-            generateMeal('lunch', dishesCount, 600, selectedTastes, cookMethod);
+        const dinner = generateMeal('dinner');
 
-            // 生成晚餐
+        
 
-            generateMeal('dinner', dishesCount, 500, selectedTastes, cookMethod);
+        // 更新界面
 
-            
+        updateMealDisplay('breakfast', breakfast);
 
-            // 更新统计信息
+        updateMealDisplay('lunch', lunch);
 
-            updateStats();
+        updateMealDisplay('dinner', dinner);
 
-            
+        
 
-            // 添加成功提示
+        // 更新统计信息
 
-            showMessage('🎉 今日菜单生成成功！', 'success');
+        updateStats(breakfast, lunch, dinner);
+
+        
+
+        alert('🎉 今日菜单生成成功！');
+
+    } catch (error) {
+
+        console.error("生成菜单时出错：", error);
+
+        alert('❌ 生成菜单失败，请重试');
+
+    }
+
+}
+
+
+
+// ==================== 生成单餐函数 ====================
+
+function generateMeal(mealType) {
+
+    console.log(`生成 ${mealType}`);
+
+    
+
+    // 根据餐别筛选菜品
+
+    let availableDishes = dishesDatabase.filter(dish => {
+
+        let valid = true;
+
+        
+
+        // 1. 根据餐别筛选
+
+        if (mealType === 'breakfast') {
+
+            valid = valid && dish.category === '早餐';
+
+        } else if (mealType === 'lunch' || mealType === 'dinner') {
+
+            valid = valid && (dish.category !== '早餐' || dish.category === '主食' || dish.category === '汤品');
 
         }
 
         
 
-        function generateMeal(mealType, dishesCount, targetCalories, tastes, cookMethod) {
+        // 2. 根据制作方式筛选
 
-            const mealElement = document.getElementById(mealType);
+        if (filters.cook === 'home') {
 
-            const dishesElement = mealElement.querySelector('.meal-dishes');
+            valid = valid && dish.location !== 'out';
 
-            const caloriesElement = mealElement.querySelector('.calories');
+        } else if (filters.cook === 'out') {
 
-            const tagsElement = mealElement.querySelector('.meal-tags');
+            valid = valid && dish.location !== 'home';
 
-            
+        }
 
-            // 清空当前内容
+        
 
-            dishesElement.innerHTML = '';
+        // 3. 根据价格筛选
 
-            
+        if (filters.priceRange < 3) {
 
-            let mealCalories = 0;
+            valid = valid && dish.price <= filters.priceRange;
 
-            let mealTime = 0;
+        }
 
-            let mealTags = new Set();
+        
 
-            let selectedDishes = [];
+        // 4. 根据地域菜系筛选
 
-            
+        if (filters.regions.length > 0) {
 
-            // 添加主食
+            valid = valid && filters.regions.includes(dish.region);
 
-            const staple = getStapleFood(stapleFood);
+        }
 
-            selectedDishes.push(staple);
+        
 
-            mealCalories += staple.calories;
+        return valid;
 
-            mealTime += staple.time;
+    });
 
-            
+    
 
-            // 添加主菜
+    console.log(`${mealType} 可选的菜品数量：${availableDishes.length}`);
 
-            const mainDishes = getRandomDishes(dishesCount - 1, mealType, tastes, cookMethod);
+    
 
-            selectedDishes.push(...mainDishes);
+    if (availableDishes.length === 0) {
 
-            
+        console.warn("没有符合条件的菜品，使用备用方案");
 
-            // 如果选择了要汤，添加汤品
+        availableDishes = dishesDatabase.filter(dish => {
 
-            if (filters.soup === 'yes' && (mealType === 'lunch' || mealType === 'dinner')) {
+            if (mealType === 'breakfast') {
 
-                const soup = getRandomSoup();
+                return dish.category === '早餐';
 
-                selectedDishes.push(soup);
+            } else {
+
+                return dish.category !== '早餐';
 
             }
 
-            
+        });
 
-            // 如果选择了甜点口味，添加甜点
+    }
 
-            if (tastes.includes('sweet') && Math.random() > 0.5) {
+    
 
-                const dessert = getRandomDessert();
+    // 5. 根据口味偏好进一步筛选
 
-                selectedDishes.push(dessert);
+    if (filters.taste.length > 0) {
 
-            }
+        const tasteMapping = {
 
-            
+            'light': '清淡',
 
-            // 计算总热量和时间
+            'fried': '油炸',
 
-            selectedDishes.forEach(dish => {
+            'sweet': '甜口',
 
-                mealCalories += dish.calories;
+            'spicy': '辣',
 
-                mealTime += dish.time;
-
-                dish.tags.forEach(tag => mealTags.add(tag));
-
-            });
-
-            
-
-            // 更新界面
-
-            selectedDishes.forEach(dish => {
-
-                const dishItem = document.createElement('div');
-
-                dishItem.className = 'dish-item';
-
-                
-
-                // 添加图标
-
-                let icon = '🍽️';
-
-                if (dish.tags.includes('清淡')) icon = '🥬';
-
-                if (dish.tags.includes('油炸')) icon = '🍤';
-
-                if (dish.tags.includes('甜点')) icon = '🍰';
-
-                if (dish.tags.includes('汤品')) icon = '🍲';
-
-                if (dish.tags.includes('主食')) icon = '🍚';
-
-                if (dish.tags.includes('肉类')) icon = '🥩';
-
-                if (dish.tags.includes('海鲜')) icon = '🐟';
-
-                
-
-                dishItem.textContent = `${icon} ${dish.name}`;
-
-                dishesElement.appendChild(dishItem);
-
-            });
-
-            
-
-            caloriesElement.textContent = mealCalories;
-
-            
-
-            // 更新标签
-
-            tagsElement.innerHTML = '';
-
-            Array.from(mealTags).slice(0, 5).forEach(tag => {
-
-                const tagElement = document.createElement('span');
-
-                tagElement.className = 'meal-tag';
-
-                tagElement.textContent = tag;
-
-                tagsElement.appendChild(tagElement);
-
-            });
-
-            
-
-            // 更新全局统计
-
-            totalCalories += mealCalories;
-
-            totalTime += mealTime;
-
-            totalDishes += selectedDishes.length;
-
-        }
-
-        
-
-        function getRandomDishes(count, mealType, tastes, cookMethod) {
-
-            let availableDishes = [...dishesDatabase[mealType]];
-
-            
-
-            // 根据口味筛选
-
-            if (tastes.length > 0) {
-
-                availableDishes = availableDishes.filter(dish => 
-
-                    tastes.some(taste => dish.tags.includes(getTasteLabel(taste)))
-
-                );
-
-            }
-
-            
-
-            // 根据制作方式筛选
-
-            if (cookMethod === 'home') {
-
-                availableDishes = availableDishes.filter(dish => 
-
-                    !dish.tags.includes('外出')
-
-                );
-
-            } else if (cookMethod === 'out') {
-
-                availableDishes = availableDishes.filter(dish => 
-
-                    dish.tags.includes('外出')
-
-                );
-
-            }
-
-            
-
-            // 随机选择指定数量的菜品
-
-            const selected = [];
-
-            for (let i = 0; i < count && availableDishes.length > 0; i++) {
-
-                const randomIndex = Math.floor(Math.random() * availableDishes.length);
-
-                selected.push(availableDishes[randomIndex]);
-
-                availableDishes.splice(randomIndex, 1);
-
-            }
-
-            
-
-            return selected;
-
-        }
-
-        
-
-        function getRandomSoup() {
-
-            const soups = dishesDatabase.soups;
-
-            return soups[Math.floor(Math.random() * soups.length)];
-
-        }
-
-        
-
-        function getRandomDessert() {
-
-            const desserts = dishesDatabase.desserts;
-
-            return desserts[Math.floor(Math.random() * desserts.length)];
-
-        }
-
-        
-
-        function getStapleFood(type) {
-
-            const staples = {
-
-                'rice': { name: "米饭", calories: 200, tags: ["主食", "基础"], time: 20 },
-
-                'porridge': { name: "白粥", calories: 150, tags: ["主食", "清淡", "粥品"], time: 25 },
-
-                'noodle': { name: "面条", calories: 220, tags: ["主食", "面食"], time: 15 },
-
-                'bun': { name: "馒头", calories: 180, tags: ["主食", "面点"], time: 5 }
-
-            };
-
-            return staples[type] || staples.rice;
-
-        }
-
-        
-
-        function getTasteLabel(tasteKey) {
-
-            const tasteMap = {
-
-                'light': '清淡',
-
-                'fried': '油炸',
-
-                'sweet': '甜点',
-
-                'spicy': '辣',
-
-                'sour': '酸'
-
-            };
-
-            return tasteMap[tasteKey] || tasteKey;
-
-        }
-
-        
-
-        function updateStats() {
-
-            // 这里应该计算真实的统计数据
-
-            // 暂时使用模拟数据
-
-            document.getElementById('totalDishes').textContent = 
-
-                Math.floor(Math.random() * 5) + 8;
-
-            document.getElementById('totalCalories').textContent = 
-
-                Math.floor(Math.random() * 300) + 1500;
-
-            document.getElementById('totalTime').textContent = 
-
-                Math.floor(Math.random() * 30) + 60;
-
-        }
-
-        
-
-        function resetFilters() {
-
-            filters = {
-
-                taste: [],
-
-                calorieLimit: 1800,
-
-                dishesPerMeal: 3,
-
-                soup: "yes",
-
-                staple: "rice",
-
-                cook: "home"
-
-            };
-
-            
-
-            // 重置UI
-
-            document.querySelectorAll('.tag').forEach(tag => {
-
-                tag.classList.remove('selected');
-
-            });
-
-            
-
-            // 设置默认选中
-
-            document.querySelector('.tag[data-type="dishes"][data-value="3"]').classList.add('selected');
-
-            document.querySelector('.tag[data-type="soup"][data-value="yes"]').classList.add('selected');
-
-            document.querySelector('.tag[data-type="staple"][data-value="rice"]').classList.add('selected');
-
-            document.querySelector('.tag[data-type="cook"][data-value="home"]').classList.add('selected');
-
-            
-
-            calorieRange.value = 1800;
-
-            calorieValue.textContent = '1800';
-
-            
-
-            showMessage('🔄 筛选条件已重置', 'info');
-
-        }
-
-        
-
-        function saveMenu() {
-
-            showMessage('💾 菜单已保存到本地！', 'success');
-
-        }
-
-        
-
-        function shareMenu() {
-
-            showMessage('📤 分享链接已复制到剪贴板！', 'success');
-
-        }
-
-        
-
-        function showMessage(text, type) {
-
-            // 移除已存在的消息
-
-            const existingMsg = document.querySelector('.message');
-
-            if (existingMsg) {
-
-                existingMsg.remove();
-
-            }
-
-            
-
-            const message = document.createElement('div');
-
-            message.className = `message ${type}`;
-
-            message.textContent = text;
-
-            message.style.cssText = `
-
-                position: fixed;
-
-                top: 20px;
-
-                right: 20px;
-
-                background: ${type === 'success' ? '#2ecc71' : '#3498db'};
-
-                color: white;
-
-                padding: 15px 25px;
-
-                border-radius: 8px;
-
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-
-                z-index: 1000;
-
-                animation: slideIn 0.3s ease;
-
-            `;
-
-            
-
-            document.body.appendChild(message);
-
-            
-
-            setTimeout(() => {
-
-                message.style.animation = 'slideOut 0.3s ease';
-
-                setTimeout(() => message.remove(), 300);
-
-            }, 3000);
-
-            
-
-            // 添加动画样式
-
-            if (!document.querySelector('#messageStyles')) {
-
-                const style = document.createElement('style');
-
-                style.id = 'messageStyles';
-
-                style.textContent = `
-
-                    @keyframes slideIn {
-
-                        from { transform: translateX(100%); opacity: 0; }
-
-                        to { transform: translateX(0); opacity: 1; }
-
-                    }
-
-                    @keyframes slideOut {
-
-                        from { transform: translateX(0); opacity: 1; }
-
-                        to { transform: translateX(100%); opacity: 0; }
-
-                    }
-
-                `;
-
-                document.head.appendChild(style);
-
-            }
-
-        }
-
-        
-
-        // 页面加载时生成默认菜单
-
-        window.onload = function() {
-
-            generateMeals();
+            'sour': '酸'
 
         };
+
+        
+
+        const chineseTastes = filters.taste.map(t => tasteMapping[t] || t);
+
+        
+
+        availableDishes = availableDishes.filter(dish => {
+
+            return chineseTastes.some(taste => 
+
+                (dish.taste && dish.taste.includes(taste)) || 
+
+                (dish.tags && dish.tags.includes(taste))
+
+            );
+
+        });
+
+    }
+
+    
+
+    // 随机选择菜品
+
+    const selectedDishes = [];
+
+    let totalCalories = 0;
+
+    let totalTime = 0;
+
+    const selectedIds = new Set();
+
+    
+
+    // 特殊处理早餐
+
+    if (mealType === 'breakfast') {
+
+        // 早餐特殊逻辑：选择饮品+主食，或单点汤粉面
+
+        const brothsOrNoodles = availableDishes.filter(dish => 
+
+            dish.tags && (dish.tags.includes('汤') || dish.tags.includes('粉面'))
+
+        );
+
+        
+
+        if (brothsOrNoodles.length > 0 && Math.random() > 0.5) {
+
+            // 选择汤粉面类
+
+            const selectedBroth = brothsOrNoodles[Math.floor(Math.random() * brothsOrNoodles.length)];
+
+            selectedDishes.push(selectedBroth);
+
+            totalCalories += selectedBroth.calories || 0;
+
+            totalTime += selectedBroth.time || 0;
+
+            selectedIds.add(selectedBroth.id);
+
+        } else {
+
+            // 选择饮品
+
+            const beverages = availableDishes.filter(dish => 
+
+                dish.category === '饮品' || 
+
+                dish.name.includes('豆浆') || 
+
+                dish.name.includes('粥') || 
+
+                dish.name.includes('咖啡') ||
+
+                dish.name.includes('牛奶')
+
+            );
+
+            
+
+            if (beverages.length > 0) {
+
+                const selectedBeverage = beverages[Math.floor(Math.random() * beverages.length)];
+
+                selectedDishes.push(selectedBeverage);
+
+                totalCalories += selectedBeverage.calories || 0;
+
+                totalTime += selectedBeverage.time || 0;
+
+                selectedIds.add(selectedBeverage.id);
+
+            }
+
+            
+
+            // 选择主食
+
+            const staples = availableDishes.filter(dish => 
+
+                dish.category === '早餐' && 
+
+                dish.tags && 
+
+                (dish.tags.includes('面点') || dish.tags.includes('主食')) &&
+
+                !dish.name.includes('豆浆') && 
+
+                !dish.name.includes('粥') && 
+
+                !dish.name.includes('咖啡') &&
+
+                !dish.name.includes('牛奶')
+
+            );
+
+            
+
+            if (staples.length > 0) {
+
+                const selectedStaple = staples[Math.floor(Math.random() * staples.length)];
+
+                selectedDishes.push(selectedStaple);
+
+                totalCalories += selectedStaple.calories || 0;
+
+                totalTime += selectedStaple.time || 0;
+
+                selectedIds.add(selectedStaple.id);
+
+            }
+
+        }
+
+    } else {
+
+        // 午餐和晚餐逻辑
+
+        // 先添加主食（除非是汤粉面类）
+
+        const noodleSoups = availableDishes.filter(dish => 
+
+            dish.tags && (dish.tags.includes('汤') || dish.tags.includes('粉面'))
+
+        );
+
+
+
+let hasNoodleSoup = false;
+
+        if (noodleSoups.length > 0 && Math.random() > 0.7) {
+
+            // 有一定概率选择汤粉面，此时不需要额外主食
+
+            const selectedNoodleSoup = noodleSoups[Math.floor(Math.random() * noodleSoups.length)];
+
+            selectedDishes.push(selectedNoodleSoup);
+
+            totalCalories += selectedNoodleSoup.calories || 0;
+
+            totalTime += selectedNoodleSoup.time || 0;
+
+            selectedIds.add(selectedNoodleSoup.id);
+
+            hasNoodleSoup = true;
+
+        } else {
+
+// 添加常规主食
+
+            const staple = getStapleFood(filters.staple);
+
+            if (staple) {
+
+                selectedDishes.push(staple);
+
+                totalCalories += staple.calories || 0;
+
+                totalTime += staple.time || 0;
+
+                selectedIds.add(staple.id);
+
+            }
+
+        }
+
+
+
+// 添加主菜
+
+        const mainDishCount = parseInt(filters.dishesPerMeal) || 3;
+
+        const mainDishes = availableDishes.filter(dish => 
+
+            dish.category === '家常菜' || dish.category === '硬菜' || dish.category === '汤品'
+
+        );
+
+        
+
+        for (let i = 0; i < mainDishCount && mainDishes.length > 0; i++) {
+
+            const randomIndex = Math.floor(Math.random() * mainDishes.length);
+
+            const dish = mainDishes[randomIndex];
+
+            
+
+if (!selectedIds.has(dish.id)) {
+
+                selectedDishes.push(dish);
+
+                totalCalories += dish.calories || 0;
+
+                totalTime += dish.time || 0;
+
+                selectedIds.add(dish.id);
+
+                
+
+                mainDishes.splice(randomIndex, 1);
+
+            }
+
+        }
+
+
+
+// 如果选择了要汤，添加汤品
+
+        if (filters.soup === 'yes' && !hasNoodleSoup) {
+
+            const soups = dishesDatabase.filter(dish => 
+
+                dish.category === '汤品' && 
+
+                !selectedIds.has(dish.id) &&
+
+                (filters.cook === 'both' || (filters.cook === 'home' ? dish.location !== 'out' : dish.location === 'out'))
+
+            );
+
+
+
+if (soups.length > 0) {
+
+                const randomSoup = soups[Math.floor(Math.random() * soups.length)];
+
+                selectedDishes.push(randomSoup);
+
+                totalCalories += randomSoup.calories || 0;
+
+                totalTime += randomSoup.time || 0;
+
+                selectedIds.add(randomSoup.id);
+
+            }
+
+        }
+
+    }
+
+    
+
+    return {
+
+        dishes: selectedDishes,
+
+        totalCalories: totalCalories,
+
+        totalTime: totalTime
+
+    };
+
+}
+
+
+
+// 获取主食函数
+
+function getStapleFood(type) {
+
+    const staples = {
+
+        'rice': { id: 9991, name: "米饭", category: "主食", price: 1, taste: ["清淡"], calories: 200, time: 20, tags: ["主食", "基础", "简单"], location: "home", description: "白米饭", region: "通用", recipe: "大米淘洗干净，按1:1.2比例加水焖煮" },
+
+        'porridge': { id: 9992, name: "白粥", category: "主食", price: 1, taste: ["清淡"], calories: 150, time: 30, tags: ["主食", "粥", "清淡", "养胃"], location: "home", description: "白粥", region: "通用", recipe: "大米与水按1:8比例慢火熬煮至粘稠" },
+
+        'noodle': { id: 9993, name: "面条", category: "主食", price: 1, taste: ["清淡"], calories: 220, time: 15, tags: ["主食", "面食", "简单", "粉面"], location: "home", description: "清水面条", region: "通用", recipe: "面粉加水揉成面团，擀成面条煮熟" },
+
+        'bun': { id: 9994, name: "馒头", category: "主食", price: 1, taste: ["清淡"], calories: 150, time: 30, tags: ["主食", "面点", "简单"], location: "home", description: "北方主食，松软可口", region: "北方", recipe: "面粉发酵后蒸制而成" }
+
+    };
+
+    return staples[type] || staples.rice;
+
+}
+
+
+
+// 更新界面显示
+
+function updateMealDisplay(mealType, mealData) {
+
+    const mealElement = document.getElementById(mealType);
+
+    if (!mealElement) return;
+
+    
+
+    const dishesElement = mealElement.querySelector('.meal-dishes');
+
+    const caloriesElement = mealElement.querySelector('.calories');
+
+    const tagsElement = mealElement.querySelector('.meal-tags');
+
+    
+
+    if (!dishesElement || !caloriesElement) return;
+
+    
+
+    // 清空当前内容
+
+    dishesElement.innerHTML = '';
+
+    
+
+    // 显示菜品
+
+    mealData.dishes.forEach(dish => {
+
+        const dishContainer = document.createElement('div');
+
+        dishContainer.className = 'dish-item-container';
+
+        
+
+        const dishItem = document.createElement('div');
+
+        dishItem.className = 'dish-item';
+
+        
+
+        // 添加图标
+
+        let icon = '🍽️';
+
+        if ((dish.tags && dish.tags.includes('清淡')) || (dish.taste && dish.taste.includes('清淡'))) icon = '🥬';
+
+        if (dish.tags && dish.tags.includes('油炸')) icon = '🍤';
+
+        if ((dish.taste && dish.taste.includes('甜口')) || (dish.tags && dish.tags.includes('甜点'))) icon = '🍰';
+
+        if (dish.category === '汤品' || (dish.tags && dish.tags.includes('汤'))) icon = '🍲';
+
+        if (dish.category === '主食') icon = '🍚';
+
+        if (dish.tags && (dish.tags.includes('肉类') || dish.tags.includes('猪肉') || dish.tags.includes('牛肉') || dish.tags.includes('鸡肉'))) icon = '🥩';
+
+        if (dish.tags && (dish.tags.includes('海鲜') || dish.tags.includes('鱼') || dish.tags.includes('虾'))) icon = '🐟';
+
+        if (dish.category === '早餐') icon = '🥐';
+
+        if ((dish.tags && dish.tags.includes('麻辣')) || (dish.taste && dish.taste.includes('辣'))) icon = '🌶️';
+
+        if (dish.tags && (dish.tags.includes('面食') || dish.tags.includes('面') || dish.tags.includes('粉面'))) icon = '🍜';
+
+        if (dish.category === '饮品') icon = '☕';
+
+        
+
+        // 添加价格标识
+
+        let priceTag = '';
+
+        if (dish.price === 1) priceTag = '💰';
+
+        else if (dish.price === 2) priceTag = '💰💰';
+
+        else if (dish.price === 3) priceTag = '💰💰💰';
+
+        
+
+        dishItem.textContent = `${icon} ${dish.name} ${priceTag}`;
+
+        dishContainer.appendChild(dishItem);
+
+        
+
+        // 添加做法显示按钮
+
+        if (dish.recipe && dish.recipe.trim() !== '') {
+
+            const recipeBtn = document.createElement('button');
+
+            recipeBtn.className = 'recipe-btn';
+
+            recipeBtn.textContent = '查看做法';
+
+            recipeBtn.onclick = function() {
+
+                alert(dish.recipe);
+
+            };
+
+            dishContainer.appendChild(recipeBtn);
+
+        }
+
+        
+
+        dishesElement.appendChild(dishContainer);
+
+    });
+
+    
+
+    // 更新热量
+
+    caloriesElement.textContent = mealData.totalCalories;
+
+    
+
+    // 更新标签
+
+    if (tagsElement) {
+
+        tagsElement.innerHTML = '';
+
+        const allTags = new Set();
+
+        mealData.dishes.forEach(dish => {
+
+            if (dish.tags) {
+
+                dish.tags.slice(0, 3).forEach(tag => allTags.add(tag));
+
+            }
+
+            if (dish.taste) {
+
+                dish.taste.slice(0, 2).forEach(taste => allTags.add(taste));
+
+            }
+
+        });
+
+        
+
+        Array.from(allTags).slice(0, 5).forEach(tag => {
+
+            const tagElement = document.createElement('span');
+
+            tagElement.className = 'meal-tag';
+
+            tagElement.textContent = tag;
+
+            tagsElement.appendChild(tagElement);
+
+        });
+
+    }
+
+}
+
+
+
+// 更新统计信息
+
+function updateStats(breakfast, lunch, dinner) {
+
+    const totalDishes = breakfast.dishes.length + lunch.dishes.length + dinner.dishes.length;
+
+    const totalCalories = breakfast.totalCalories + lunch.totalCalories + dinner.totalCalories;
+
+    const totalTime = breakfast.totalTime + lunch.totalTime + dinner.totalTime;
+
+    
+
+    const totalDishesElement = document.getElementById('totalDishes');
+
+    const totalCaloriesElement = document.getElementById('totalCalories');
+
+    const totalTimeElement = document.getElementById('totalTime');
+
+    
+
+    if (totalDishesElement) totalDishesElement.textContent = totalDishes;
+
+    if (totalCaloriesElement) totalCaloriesElement.textContent = totalCalories;
+
+    if (totalTimeElement) totalTimeElement.textContent = totalTime;
+
+}
+
+
+
+// 重置筛选条件
+
+function resetFilters() {
+
+    filters = {
+
+        taste: [],
+
+        regions: [],
+
+        calorieLimit: 1800,
+
+        dishesPerMeal: 3,
+
+        soup: "yes",
+
+        staple: "rice",
+
+        cook: "home",
+
+        priceRange: 3
+
+    };
+
+    
+
+    // 重置UI
+
+    document.querySelectorAll('.tag').forEach(tag => {
+
+        tag.classList.remove('selected');
+
+    });
+
+    
+
+    // 设置默认选中
+
+    document.querySelector('.tag[data-type="dishes"][data-value="3"]').classList.add('selected');
+
+    document.querySelector('.tag[data-type="soup"][data-value="yes"]').classList.add('selected');
+
+    document.querySelector('.tag[data-type="staple"][data-value="rice"]').classList.add('selected');
+
+    document.querySelector('.tag[data-type="cook"][data-value="home"]').classList.add('selected');
+
+    document.querySelector('.tag[data-type="price"][data-value="3"]').classList.add('selected');
+
+    
+
+    const calorieRange = document.getElementById('calorieRange');
+
+    const calorieValue = document.getElementById('calorieValue');
+
+    if (calorieRange && calorieValue) {
+
+        calorieRange.value = 1800;
+
+        calorieValue.textContent = '1800';
+
+    }
+
+    
+
+    // 重新生成菜单
+
+    generateMeals();
+
+    alert('🔄 筛选条件已重置');
+
+}
+
+
+
+function saveMenu() {
+
+    alert('💾 菜单已保存到本地！');
+
+}
+
+
+
+function shareMenu() {
+
+    alert('📤 分享链接已复制到剪贴板！');
+
+}
 
     </script>
 
 </body>
 
 </html>
+
+
 
 
 
