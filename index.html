@@ -1147,13 +1147,33 @@ function generateMeals() {
 
         
 
+        // 重新初始化已选菜品ID集合
+
+        window.selectedDishIds = new Set();
+
+        
+
+        // 分配三餐热量（按比例：早餐25%，午餐40%，晚餐35%）
+
+        const breakfastCalories = Math.floor(filters.calorieLimit * 0.25);
+
+        const lunchCalories = Math.floor(filters.calorieLimit * 0.40);
+
+        const dinnerCalories = Math.floor(filters.calorieLimit * 0.35);
+
+        
+
+        console.log("热量分配：", { breakfastCalories, lunchCalories, dinnerCalories });
+
+        
+
         // 生成三餐
 
-        const breakfast = generateMeal('breakfast');
+        const breakfast = generateMeal('breakfast', breakfastCalories);
 
-        const lunch = generateMeal('lunch');
+        const lunch = generateMeal('lunch', lunchCalories);
 
-        const dinner = generateMeal('dinner');
+        const dinner = generateMeal('dinner', dinnerCalories);
 
         
 
@@ -1173,13 +1193,15 @@ function generateMeals() {
 
         
 
-        alert('🎉 今日菜单生成成功！');
+        // 显示成功信息
+
+        showMessage('🎉 今日菜单生成成功！', 'success');
 
     } catch (error) {
 
         console.error("生成菜单时出错：", error);
 
-        alert('❌ 生成菜单失败，请重试');
+        showMessage('❌ 生成菜单失败，请重试', 'error');
 
     }
 
@@ -1189,15 +1211,55 @@ function generateMeals() {
 
 // ==================== 生成单餐函数 ====================
 
-function generateMeal(mealType) {
+function generateMeal(mealType, calorieLimit) {
 
-    console.log(`生成 ${mealType}`);
+    console.log(`生成 ${mealType}, 热量限制: ${calorieLimit}`);
 
     
 
-    // 根据餐别筛选菜品
+    // 获取可用的菜品
 
-    let availableDishes = dishesDatabase.filter(dish => {
+    let availableDishes = getFilteredDishes(mealType);
+
+    
+
+    console.log(`${mealType} 可选的菜品数量：${availableDishes.length}`);
+
+    
+
+    if (availableDishes.length === 0) {
+
+        console.warn("没有符合条件的菜品，使用备用方案");
+
+        availableDishes = getBackupDishes(mealType);
+
+    }
+
+    
+
+    // 特殊处理早餐
+
+    if (mealType === 'breakfast') {
+
+        return generateBreakfast(availableDishes, calorieLimit);
+
+    } else {
+
+        // 午餐和晚餐逻辑
+
+        return generateLunchOrDinner(availableDishes, calorieLimit, mealType);
+
+    }
+
+}
+
+
+
+// ==================== 获取筛选后的菜品 ====================
+
+function getFilteredDishes(mealType) {
+
+    return dishesDatabase.filter(dish => {
 
         let valid = true;
 
@@ -1251,65 +1313,29 @@ function generateMeal(mealType) {
 
         
 
-        return valid;
+        // 5. 根据口味偏好筛选
 
-    });
+        if (filters.taste.length > 0) {
 
-    
+            const tasteMapping = {
 
-    console.log(`${mealType} 可选的菜品数量：${availableDishes.length}`);
+                'light': '清淡',
 
-    
+                'fried': '油炸',
 
-    if (availableDishes.length === 0) {
+                'sweet': '甜口',
 
-        console.warn("没有符合条件的菜品，使用备用方案");
+                'spicy': '辣',
 
-        availableDishes = dishesDatabase.filter(dish => {
+                'sour': '酸'
 
-            if (mealType === 'breakfast') {
+            };
 
-                return dish.category === '早餐';
+            
 
-            } else {
+            const chineseTastes = filters.taste.map(t => tasteMapping[t] || t);
 
-                return dish.category !== '早餐';
-
-            }
-
-        });
-
-    }
-
-    
-
-    // 5. 根据口味偏好进一步筛选
-
-    if (filters.taste.length > 0) {
-
-        const tasteMapping = {
-
-            'light': '清淡',
-
-            'fried': '油炸',
-
-            'sweet': '甜口',
-
-            'spicy': '辣',
-
-            'sour': '酸'
-
-        };
-
-        
-
-        const chineseTastes = filters.taste.map(t => tasteMapping[t] || t);
-
-        
-
-        availableDishes = availableDishes.filter(dish => {
-
-            return chineseTastes.some(taste => 
+            const hasMatchingTaste = chineseTastes.some(taste => 
 
                 (dish.taste && dish.taste.includes(taste)) || 
 
@@ -1317,13 +1343,59 @@ function generateMeal(mealType) {
 
             );
 
-        });
+            
 
-    }
+            valid = valid && hasMatchingTaste;
 
-    
+        }
 
-    // 随机选择菜品
+        
+
+        // 6. 避免重复选择
+
+        if (window.selectedDishIds && window.selectedDishIds.has(dish.id)) {
+
+            valid = false;
+
+        }
+
+        
+
+        return valid;
+
+    });
+
+}
+
+
+
+// ==================== 获取备用菜品 ====================
+
+function getBackupDishes(mealType) {
+
+    return dishesDatabase.filter(dish => {
+
+        if (mealType === 'breakfast') {
+
+            return dish.category === '早餐';
+
+        } else {
+
+            return dish.category !== '早餐';
+
+        }
+
+    });
+
+}
+
+
+
+
+
+// ==================== 生成早餐 ====================
+
+function generateBreakfast(availableDishes, calorieLimit) {
 
     const selectedDishes = [];
 
@@ -1331,29 +1403,33 @@ function generateMeal(mealType) {
 
     let totalTime = 0;
 
-    const selectedIds = new Set();
+    
+
+    // 早餐逻辑：选择饮品+主食，或单点汤粉面
+
+    const brothsOrNoodles = availableDishes.filter(dish => 
+
+        dish.tags && (dish.tags.includes('汤') || dish.tags.includes('粉面'))
+
+    );
 
     
 
-    // 特殊处理早餐
+    if (brothsOrNoodles.length > 0 && Math.random() > 0.5) {
 
-    if (mealType === 'breakfast') {
+        // 选择汤粉面类
 
-        // 早餐特殊逻辑：选择饮品+主食，或单点汤粉面
+        const validBroths = brothsOrNoodles.filter(dish => 
 
-        const brothsOrNoodles = availableDishes.filter(dish => 
-
-            dish.tags && (dish.tags.includes('汤') || dish.tags.includes('粉面'))
+            !window.selectedDishIds.has(dish.id) && dish.calories <= calorieLimit
 
         );
 
         
 
-        if (brothsOrNoodles.length > 0 && Math.random() > 0.5) {
+        if (validBroths.length > 0) {
 
-            // 选择汤粉面类
-
-            const selectedBroth = brothsOrNoodles[Math.floor(Math.random() * brothsOrNoodles.length)];
+            const selectedBroth = validBroths[Math.floor(Math.random() * validBroths.length)];
 
             selectedDishes.push(selectedBroth);
 
@@ -1361,205 +1437,89 @@ function generateMeal(mealType) {
 
             totalTime += selectedBroth.time || 0;
 
-            selectedIds.add(selectedBroth.id);
-
-        } else {
-
-            // 选择饮品
-
-            const beverages = availableDishes.filter(dish => 
-
-                dish.category === '饮品' || 
-
-                dish.name.includes('豆浆') || 
-
-                dish.name.includes('粥') || 
-
-                dish.name.includes('咖啡') ||
-
-                dish.name.includes('牛奶')
-
-            );
-
-            
-
-            if (beverages.length > 0) {
-
-                const selectedBeverage = beverages[Math.floor(Math.random() * beverages.length)];
-
-                selectedDishes.push(selectedBeverage);
-
-                totalCalories += selectedBeverage.calories || 0;
-
-                totalTime += selectedBeverage.time || 0;
-
-                selectedIds.add(selectedBeverage.id);
-
-            }
-
-            
-
-            // 选择主食
-
-            const staples = availableDishes.filter(dish => 
-
-                dish.category === '早餐' && 
-
-                dish.tags && 
-
-                (dish.tags.includes('面点') || dish.tags.includes('主食')) &&
-
-                !dish.name.includes('豆浆') && 
-
-                !dish.name.includes('粥') && 
-
-                !dish.name.includes('咖啡') &&
-
-                !dish.name.includes('牛奶')
-
-            );
-
-            
-
-            if (staples.length > 0) {
-
-                const selectedStaple = staples[Math.floor(Math.random() * staples.length)];
-
-                selectedDishes.push(selectedStaple);
-
-                totalCalories += selectedStaple.calories || 0;
-
-                totalTime += selectedStaple.time || 0;
-
-                selectedIds.add(selectedStaple.id);
-
-            }
+            window.selectedDishIds.add(selectedBroth.id);
 
         }
 
     } else {
 
-        // 午餐和晚餐逻辑
+        // 选择饮品
 
-        // 先添加主食（除非是汤粉面类）
+        const beverages = availableDishes.filter(dish => 
 
-        const noodleSoups = availableDishes.filter(dish => 
+            (dish.category === '饮品' || 
 
-            dish.tags && (dish.tags.includes('汤') || dish.tags.includes('粉面'))
+            dish.name.includes('豆浆') || 
 
-        );
+            dish.name.includes('粥') || 
 
+            dish.name.includes('咖啡') ||
 
+            dish.name.includes('牛奶')) &&
 
-let hasNoodleSoup = false;
+            !window.selectedDishIds.has(dish.id) &&
 
-        if (noodleSoups.length > 0 && Math.random() > 0.7) {
-
-            // 有一定概率选择汤粉面，此时不需要额外主食
-
-            const selectedNoodleSoup = noodleSoups[Math.floor(Math.random() * noodleSoups.length)];
-
-            selectedDishes.push(selectedNoodleSoup);
-
-            totalCalories += selectedNoodleSoup.calories || 0;
-
-            totalTime += selectedNoodleSoup.time || 0;
-
-            selectedIds.add(selectedNoodleSoup.id);
-
-            hasNoodleSoup = true;
-
-        } else {
-
-// 添加常规主食
-
-            const staple = getStapleFood(filters.staple);
-
-            if (staple) {
-
-                selectedDishes.push(staple);
-
-                totalCalories += staple.calories || 0;
-
-                totalTime += staple.time || 0;
-
-                selectedIds.add(staple.id);
-
-            }
-
-        }
-
-
-
-// 添加主菜
-
-        const mainDishCount = parseInt(filters.dishesPerMeal) || 3;
-
-        const mainDishes = availableDishes.filter(dish => 
-
-            dish.category === '家常菜' || dish.category === '硬菜' || dish.category === '汤品'
+            dish.calories <= calorieLimit
 
         );
 
         
 
-        for (let i = 0; i < mainDishCount && mainDishes.length > 0; i++) {
+        if (beverages.length > 0) {
 
-            const randomIndex = Math.floor(Math.random() * mainDishes.length);
+            const selectedBeverage = beverages[Math.floor(Math.random() * beverages.length)];
 
-            const dish = mainDishes[randomIndex];
+            selectedDishes.push(selectedBeverage);
 
-            
+            totalCalories += selectedBeverage.calories || 0;
 
-if (!selectedIds.has(dish.id)) {
+            totalTime += selectedBeverage.time || 0;
 
-                selectedDishes.push(dish);
-
-                totalCalories += dish.calories || 0;
-
-                totalTime += dish.time || 0;
-
-                selectedIds.add(dish.id);
-
-                
-
-                mainDishes.splice(randomIndex, 1);
-
-            }
+            window.selectedDishIds.add(selectedBeverage.id);
 
         }
 
+        
 
+        // 选择主食
 
-// 如果选择了要汤，添加汤品
+        const remainingCalories = calorieLimit - totalCalories;
 
-        if (filters.soup === 'yes' && !hasNoodleSoup) {
+        const staples = availableDishes.filter(dish => 
 
-            const soups = dishesDatabase.filter(dish => 
+            dish.category === '早餐' && 
 
-                dish.category === '汤品' && 
+            dish.tags && 
 
-                !selectedIds.has(dish.id) &&
+            (dish.tags.includes('面点') || dish.tags.includes('主食')) &&
 
-                (filters.cook === 'both' || (filters.cook === 'home' ? dish.location !== 'out' : dish.location === 'out'))
+            !dish.name.includes('豆浆') && 
 
-            );
+            !dish.name.includes('粥') && 
 
+            !dish.name.includes('咖啡') &&
 
+            !dish.name.includes('牛奶') &&
 
-if (soups.length > 0) {
+            !window.selectedDishIds.has(dish.id) &&
 
-                const randomSoup = soups[Math.floor(Math.random() * soups.length)];
+            dish.calories <= remainingCalories
 
-                selectedDishes.push(randomSoup);
+        );
 
-                totalCalories += randomSoup.calories || 0;
+        
 
-                totalTime += randomSoup.time || 0;
+        if (staples.length > 0) {
 
-                selectedIds.add(randomSoup.id);
+            const selectedStaple = staples[Math.floor(Math.random() * staples.length)];
 
-            }
+            selectedDishes.push(selectedStaple);
+
+            totalCalories += selectedStaple.calories || 0;
+
+            totalTime += selectedStaple.time || 0;
+
+            window.selectedDishIds.add(selectedStaple.id);
 
         }
 
@@ -1581,7 +1541,177 @@ if (soups.length > 0) {
 
 
 
-// 获取主食函数
+// ==================== 生成午餐或晚餐 ====================
+
+function generateLunchOrDinner(availableDishes, calorieLimit, mealType) {
+
+    const selectedDishes = [];
+
+    let totalCalories = 0;
+
+    let totalTime = 0;
+
+    
+
+    // 确保菜品不会重复
+
+    const getAvailableDish = (categoryFilter, maxCalories) => {
+
+        return availableDishes.filter(dish => 
+
+            (!categoryFilter || dish.category === categoryFilter) &&
+
+            !window.selectedDishIds.has(dish.id) &&
+
+            dish.calories <= maxCalories
+
+        );
+
+    };
+
+    
+
+    // 1. 先添加主食（除非是汤粉面类）
+
+    const noodleSoups = getAvailableDish(null, calorieLimit).filter(dish => 
+
+        dish.tags && (dish.tags.includes('汤') || dish.tags.includes('粉面'))
+
+    );
+
+    
+
+    let hasMainDish = false;
+
+    if (noodleSoups.length > 0 && Math.random() > 0.7) {
+
+        // 选择汤粉面类，此时不需要额外主食
+
+        const selectedNoodleSoup = noodleSoups[Math.floor(Math.random() * noodleSoups.length)];
+
+        selectedDishes.push(selectedNoodleSoup);
+
+        totalCalories += selectedNoodleSoup.calories || 0;
+
+        totalTime += selectedNoodleSoup.time || 0;
+
+        window.selectedDishIds.add(selectedNoodleSoup.id);
+
+        hasMainDish = true;
+
+    } else if (!hasMainDish) {
+
+        // 添加常规主食
+
+        const staple = getStapleFood(filters.staple);
+
+        if (staple && staple.calories <= calorieLimit) {
+
+            selectedDishes.push(staple);
+
+            totalCalories += staple.calories || 0;
+
+            totalTime += staple.time || 0;
+
+        }
+
+    }
+
+    
+
+    // 2. 添加主菜（根据选择的菜数）
+
+    const mainDishCount = Math.max(parseInt(filters.dishesPerMeal) || 1, 1);
+
+    const hasSoup = filters.soup === 'yes';
+
+    const hasSoupInDishes = false; // 跟踪是否已添加汤
+
+    
+
+    for (let i = 0; i < mainDishCount; i++) {
+
+        const remainingCalories = calorieLimit - totalCalories;
+
+        if (remainingCalories <= 50) break; // 热量不足时停止
+
+        
+
+        // 确定这次添加什么类型的菜
+
+        let dishType = 'main';
+
+        if (i === 0 && !hasMainDish) {
+
+            dishType = 'main';
+
+        } else if (hasSoup && !hasSoupInDishes && Math.random() > 0.5) {
+
+            dishType = 'soup';
+
+        } else {
+
+            dishType = 'side';
+
+        }
+
+        
+
+        // 根据类型筛选菜品
+
+        let candidateDishes = [];
+
+        if (dishType === 'soup') {
+
+            candidateDishes = getAvailableDish('汤品', remainingCalories);
+
+        } else {
+
+            candidateDishes = getAvailableDish(null, remainingCalories).filter(dish => 
+
+                dish.category === '家常菜' || dish.category === '硬菜'
+
+            );
+
+        }
+
+        
+
+        if (candidateDishes.length > 0) {
+
+            const selectedDish = candidateDishes[Math.floor(Math.random() * candidateDishes.length)];
+
+            selectedDishes.push(selectedDish);
+
+            totalCalories += selectedDish.calories || 0;
+
+            totalTime += selectedDish.time || 0;
+
+            window.selectedDishIds.add(selectedDish.id);
+
+        }
+
+    }
+
+    
+
+    console.log(`${mealType} 选择了 ${selectedDishes.length} 道菜，总热量: ${totalCalories}`);
+
+    
+
+    return {
+
+        dishes: selectedDishes,
+
+        totalCalories: totalCalories,
+
+        totalTime: totalTime
+
+    };
+
+}
+
+// ==================== 获取主食函数 ====================
 
 function getStapleFood(type) {
 
@@ -1603,7 +1733,7 @@ function getStapleFood(type) {
 
 
 
-// 更新界面显示
+// ==================== 更新界面显示 ====================
 
 function updateMealDisplay(mealType, mealData) {
 
@@ -1687,7 +1817,7 @@ function updateMealDisplay(mealType, mealData) {
 
         
 
-        dishItem.textContent = `${icon} ${dish.name} ${priceTag}`;
+        dishItem.textContent = `${icon} ${dish.name} ${priceTag} (${dish.calories}大卡)`;
 
         dishContainer.appendChild(dishItem);
 
@@ -1705,7 +1835,7 @@ function updateMealDisplay(mealType, mealData) {
 
             recipeBtn.onclick = function() {
 
-                alert(dish.recipe);
+                alert(`做法：${dish.recipe}`);
 
             };
 
@@ -1771,7 +1901,9 @@ function updateMealDisplay(mealType, mealData) {
 
 
 
-// 更新统计信息
+
+
+// ==================== 更新统计信息 ====================
 
 function updateStats(breakfast, lunch, dinner) {
 
@@ -1801,7 +1933,7 @@ function updateStats(breakfast, lunch, dinner) {
 
 
 
-// 重置筛选条件
+// ==================== 重置筛选条件 ====================
 
 function resetFilters() {
 
@@ -1865,11 +1997,105 @@ function resetFilters() {
 
     
 
+    // 清除已选菜品ID
+
+    window.selectedDishIds = new Set();
+
+    
+
     // 重新生成菜单
 
     generateMeals();
 
-    alert('🔄 筛选条件已重置');
+    showMessage('🔄 筛选条件已重置', 'info');
+
+}
+
+
+
+// ==================== 消息提示函数 ====================
+
+function showMessage(text, type) {
+
+    // 移除已存在的消息
+
+    const existingMsg = document.querySelector('.message');
+
+    if (existingMsg) {
+
+        existingMsg.remove();
+
+    }
+
+    
+
+    const message = document.createElement('div');
+
+    message.className = 'message';
+
+    message.textContent = text;
+
+    message.style.cssText = `
+
+        position: fixed;
+
+        top: 20px;
+
+        right: 20px;
+
+        background: ${type === 'success' ? '#2ecc71' : type === 'error' ? '#e74c3c' : '#3498db'};
+
+        color: white;
+
+        padding: 15px 25px;
+
+        border-radius: 8px;
+
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+        z-index: 1000;
+
+        animation: fadeIn 0.3s ease;
+
+    `;
+
+    
+
+    // 添加淡入动画
+
+    const style = document.createElement('style');
+
+    style.textContent = `
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; transform: translateY(-20px); }
+
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+    `;
+
+    document.head.appendChild(style);
+
+    
+
+    document.body.appendChild(message);
+
+    
+
+    // 3秒后自动消失
+
+    setTimeout(() => {
+
+        message.style.opacity = '0';
+
+        message.style.transition = 'opacity 0.5s ease';
+
+        setTimeout(() => message.remove(), 500);
+
+    }, 3000);
 
 }
 
@@ -1877,7 +2103,7 @@ function resetFilters() {
 
 function saveMenu() {
 
-    alert('💾 菜单已保存到本地！');
+    showMessage('💾 菜单已保存到本地！', 'success');
 
 }
 
@@ -1885,15 +2111,15 @@ function saveMenu() {
 
 function shareMenu() {
 
-    alert('📤 分享链接已复制到剪贴板！');
+    showMessage('📤 分享链接已复制到剪贴板！', 'success');
 
 }
 
-    </script>
 
-</body>
 
-</html>
+
+
+
 
 
 
